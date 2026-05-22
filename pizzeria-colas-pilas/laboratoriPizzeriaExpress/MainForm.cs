@@ -31,6 +31,7 @@ namespace laboratoriPizzeriaCampusExpress
         private void BtnNuevoPedido_Click(object sender, EventArgs e)
         {
             string cliente = txtCliente.Text.Trim();
+            string codigo = txtcodigo_premiun.Text.Trim();
 
             // Validar entrada
             if (txtCliente.Text==""){
@@ -39,17 +40,28 @@ namespace laboratoriPizzeriaCampusExpress
             	
             	return;
             }
+            if (codigo =="123"){
+            
+            	
+            	listPremiun.Items.Add(cliente);
+            	ActualizarUI();
+     
+            	
+            	
+            }else{
+            
+            	colaPedidos.Enqueue(cliente);
+            	
+            	pilaBitacora.Push(string.Format("PEDIDO: {0}",cliente));
+            
+            }
 			
             
-            // Agregar a la cola
-            
-            colaPedidos.Enqueue(cliente);
+           
 				
             // Registrar en la pila
             
-            pilaBitacora.Push(string.Format("PEDIDO: {0}",cliente));
-            
-
+   
             // Limpiar campo y actualizar;
             lblEstado.Text = string.Format("✅ Pedido registrado para {0}", cliente);
             ActualizarUI();
@@ -123,6 +135,7 @@ namespace laboratoriPizzeriaCampusExpress
         {
             colaPedidos.Clear();
             pilaBitacora.Clear();
+            listPremiun.Items.Clear();
             lblEstado.Text = string.Format("sistema reiniciado");
             ActualizarUI();
         }
@@ -132,6 +145,7 @@ namespace laboratoriPizzeriaCampusExpress
         {
             // Limpiar listas visuales
             lstPedidos.Items.Clear();
+            listPremiun.Items.Clear();
             lstBitacora.Items.Clear();
 
             // Mostrar cola de pedidos
